@@ -1,7 +1,9 @@
 import express from 'express'
 import { connect, set } from 'mongoose'
-import { NODE_ENV, PORT } from '@config'
+import { LOG_FORMAT, NODE_ENV, PORT } from '@config'
 import { dbUri, dbOptions } from '@databases/mongo'
+import { logger, stream } from '@utils/logger'
+import morgan from 'morgan'
 class App {
   public app: express.Application
   public env: string
@@ -18,11 +20,12 @@ class App {
 
   public listen() {
     this.app.listen(this.port, () => {
-      console.log(`app listening on port ${this.port}`)
+      logger.info(`app listening on port ${this.port}`)
     })
   }
 
   public initializeMiddlewares() {
+    this.app.use(morgan(LOG_FORMAT, { stream }))
     this.app.use(express.json())
     this.app.use(express.urlencoded({ extended: true }))
   }
@@ -37,8 +40,12 @@ class App {
     }
 
     connect(dbUri, dbOptions)
-      .then(() => console.log('connected ok'))
-      .catch(err => console.error(err))
+      .then(() => {
+        logger.info(`db connected to ${dbUri}`)
+      })
+      .catch(err => {
+        logger.error(`failed to connect to db: ${err}`)
+      })
   }
 }
 

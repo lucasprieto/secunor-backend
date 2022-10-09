@@ -23,7 +23,8 @@
     "paths": {
       "@/*": ["*"],
       "@config": ["config"],
-      "@databases/*": ["databases/*"]
+      "@databases/*": ["databases/*"],
+      "@utils/*": ["utils/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env"],
