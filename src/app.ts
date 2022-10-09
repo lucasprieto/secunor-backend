@@ -1,6 +1,7 @@
-import { NODE_ENV, PORT } from '@config'
 import express from 'express'
-
+import { connect, set } from 'mongoose'
+import { NODE_ENV, PORT } from '@config'
+import { dbUri, dbOptions } from '@databases/mongo'
 class App {
   public app: express.Application
   public env: string
@@ -11,6 +12,7 @@ class App {
     this.env = NODE_ENV || 'development'
     this.port = PORT || 3000
 
+    this.connectToDatabase()
     this.initializeMiddlewares()
   }
 
@@ -27,6 +29,16 @@ class App {
 
   public getServer() {
     return this.app
+  }
+
+  public connectToDatabase() {
+    if (this.env !== 'production') {
+      set('debug', true)
+    }
+
+    connect(dbUri, dbOptions)
+      .then(() => console.log('connected ok'))
+      .catch(err => console.error(err))
   }
 }
 
