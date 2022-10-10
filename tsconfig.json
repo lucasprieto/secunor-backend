@@ -27,7 +27,11 @@
       "@utils/*": ["utils/*"],
       "@interfaces/*": ["interfaces/*"],
       "@routes/*": ["routes/*"],
-      "@controllers/*": ["controllers/*"]
+      "@controllers/*": ["controllers/*"],
+      "@exceptions/*": ["exceptions/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@dtos/*": ["dtos/*"],
+      "@services/*": ["services/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env"],
