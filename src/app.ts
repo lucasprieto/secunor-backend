@@ -1,9 +1,9 @@
 import express from 'express'
+import morgan from 'morgan'
 import { connect, set } from 'mongoose'
 import { LOG_FORMAT, NODE_ENV, PORT } from '@config'
 import { dbUri, dbOptions } from '@databases/mongo'
 import { logger, stream } from '@utils/logger'
-import morgan from 'morgan'
 class App {
   public app: express.Application
   public env: string
