@@ -1,5 +1,8 @@
 import App from '@/app'
+import IndexRoute from '@/routes/index.route'
 
-const app = new App()
+const routes = [new IndexRoute()]
+
+const app = new App(routes)
 
 app.listen()

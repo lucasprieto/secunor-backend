@@ -24,7 +24,10 @@
       "@/*": ["*"],
       "@config": ["config"],
       "@databases/*": ["databases/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@routes/*": ["routes/*"],
+      "@controllers/*": ["controllers/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env"],

@@ -4,18 +4,21 @@ import { connect, set } from 'mongoose'
 import { LOG_FORMAT, NODE_ENV, PORT } from '@config'
 import { dbUri, dbOptions } from '@databases/mongo'
 import { logger, stream } from '@utils/logger'
+import { Routes } from '@/interfaces/routes.interface'
+
 class App {
   public app: express.Application
   public env: string
   public port: string | number
 
-  constructor() {
+  constructor(routes: Routes[]) {
     this.app = express()
     this.env = NODE_ENV || 'development'
     this.port = PORT || 3000
 
     this.connectToDatabase()
     this.initializeMiddlewares()
+    this.initializeRoutes(routes)
   }
 
   public listen() {
@@ -24,17 +27,23 @@ class App {
     })
   }
 
-  public initializeMiddlewares() {
+  public getServer() {
+    return this.app
+  }
+
+  private initializeMiddlewares() {
     this.app.use(morgan(LOG_FORMAT, { stream }))
     this.app.use(express.json())
     this.app.use(express.urlencoded({ extended: true }))
   }
 
-  public getServer() {
-    return this.app
+  private initializeRoutes(routes: Routes[]) {
+    routes.forEach(route => {
+      this.app.use(route.path, route.router)
+    })
   }
 
-  public connectToDatabase() {
+  private connectToDatabase() {
     if (this.env !== 'production') {
       set('debug', true)
     }
