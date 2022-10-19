@@ -22,7 +22,7 @@ class UserService {
     return entity
   }
 
-  public async create(data: CreateUserDto) {
+  public async create(data: CreateUserDto): Promise<User> {
     if (isEmpty(data)) throw new HttpException(400, 'Payload is empty')
 
     const userExists: User = await this.model.findOne({ email: data.email })
@@ -34,7 +34,7 @@ class UserService {
     return entity
   }
 
-  public async update(id: string, data: CreateUserDto) {
+  public async update(id: string, data: CreateUserDto): Promise<User> {
     if (isEmpty(id)) throw new HttpException(400, 'ID is empty')
     if (isEmpty(data)) throw new HttpException(400, 'Payload is empty')
 
@@ -48,7 +48,7 @@ class UserService {
     return entity
   }
 
-  public async delete(id: string) {
+  public async delete(id: string): Promise<User> {
     if (isEmpty(id)) throw new HttpException(400, 'ID is empty')
 
     const entity: User = await this.model.findByIdAndDelete(id)

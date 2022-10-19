@@ -1,0 +1,38 @@
+# baseURL
+@baseURL = http://localhost:3001
+
+###
+# Find All Proveedores
+GET {{ baseURL }}/proveedor
+
+###
+# Find Proveedor By Id
+GET {{ baseURL }}/proveedor/634f43ed70f0f2d7d44ab4ab
+
+###
+# Create Proveedor
+POST {{ baseURL }}/proveedor
+Content-Type: application/json
+
+{
+  "nombre": "example@email.com",
+  "direccion": "example@email.com",
+  "telefono": "example@email.com",
+  "estado": "inicial"
+}
+
+###
+# Edit Proveedor
+PUT {{ baseURL }}/proveedor/634f4bac8d0a66995759fdca
+Content-Type: application/json
+
+{
+  "nombre": "example@email.com",
+  "direccion": "example@email.com",
+  "telefono": "example@email.com",
+  "estado": "comprado"
+}
+
+###
+# Delete Proveedor
+DELETE {{ baseURL }}/proveedor/634f4bac8d0a66995759fdca
